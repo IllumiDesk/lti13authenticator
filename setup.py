@@ -3,9 +3,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="hub-lti-auth",
-    version="0.1",
-    description="OIDC lti auth",
+    name="lti13-authenticator",
+    version="0.1.0",
+    description="JupyterHub LTI 1.3 Authenticator",
     install_requires=[
         'PyJWT',
         'josepy',
@@ -16,7 +16,7 @@ setup(
         'pycryptodome',
     ],
     package_data={
-        'auth': ["templates/*"],
+        'lti13-authenticator': ["auth/*", "templates/*"],
     },
     packages=find_packages()
 )
