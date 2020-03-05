@@ -16,7 +16,7 @@ setup(
         'pycryptodome',
     ],
     package_data={
-        'lti13-authenticator': ["auth/*", "templates/*"],
+        'lti13authenticator': ["auth/*", "templates/*"],
     },
     packages=find_packages()
 )
