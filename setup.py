@@ -3,8 +3,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="lti13-authenticator",
-    version="0.1.0",
+    name="lti13authenticator",
+    version="0.1.1",
     description="JupyterHub LTI 1.3 Authenticator",
     install_requires=[
         'PyJWT',
