@@ -10,7 +10,7 @@ from traitlets import Unicode, Bool
 from oauthenticator.oauth2 import OAuthenticator
 from josepy.jws import JWS, Header
 
-from .handler import LTILoginHandler, LTICallbackHandler
+from .handler import LTI13LoginHandler, LTI13CallbackHandler
 from .illumidesk import setup_course
 from .lms import email_to_username, fetch_students_from_lms, get_lms_access_token
 
@@ -43,11 +43,11 @@ async def lti_jwt_decode(token, jwks, verify=True, audience=None):
     )
 
 
-class LTIAuthenticator(OAuthenticator):
-    login_service = "Canvas"
+class LTI13Authenticator(OAuthenticator):
+    login_service = "LTI13"
 
-    login_handler = LTILoginHandler
-    callback_handler = LTICallbackHandler
+    login_handler = LTI13LoginHandler
+    callback_handler = LTI13CallbackHandler
 
     endpoint = Unicode(config=True)
     authorize_url = Unicode(config=True)
@@ -91,6 +91,10 @@ class LTIAuthenticator(OAuthenticator):
             # auth state is not enabled
             return
         spawner.course_id = auth_state['course_id']
+        self.log.debug('Course id from auth_state is: ' + auth_state['course_id'])
         spawner.environment['LMS_INSTANCE'] = auth_state['lms_instance']
+        self.log.debug('LMS instance is: ' + auth_state['lms_instance'])
         spawner.environment['USER_ROLE'] = auth_state['user_type']
+        self.log.debug('User role from Authenticator is: ' + auth_state['user_type'])
         spawner.environment['TOKEN'] = json.dumps(auth_state['token'])
+        self.log.debug('Spawner token is: ' + auth_state['user_type'])

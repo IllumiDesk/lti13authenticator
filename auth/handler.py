@@ -17,7 +17,7 @@ from oauthenticator.oauth2 import OAuthLoginHandler, OAuthCallbackHandler, _seri
 from .grades import get_sender
 
 
-class LTILoginHandler(OAuthLoginHandler, OAuth2Mixin):
+class LTI13LoginHandler(OAuthLoginHandler, OAuth2Mixin):
     def post(self):
         login_hint = self.get_argument('login_hint')
         lti_message_hint = self.get_argument('lti_message_hint')
@@ -64,7 +64,7 @@ class LTILoginHandler(OAuthLoginHandler, OAuth2Mixin):
         return self._state
 
 
-class LTICallbackHandler(OAuthCallbackHandler):
+class LTI13CallbackHandler(OAuthCallbackHandler):
     async def post(self):
         self.check_state()
         user = await self.login_user()

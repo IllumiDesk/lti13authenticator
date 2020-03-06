@@ -4,7 +4,7 @@
 
 Installation is like any other python package with `pip`:
 
-    pip install git+ssh://git@github.com/IllumiDesk/lti13-authenticator.git
+    pip install git+ssh://git@github.com/IllumiDesk/lti13authenticator.git
 
 ## Usage
 
@@ -12,7 +12,7 @@ Add these configuration options to your `jupyterhub_config.py`:
 
 ```python
 c.Authenticator.enable_auth_state = True
-c.JupyterHub.authenticator_class = 'auth.authenticator.LTIAuthenticator'
+c.JupyterHub.authenticator_class = 'auth.authenticator.LTI13Authenticator'
 c.LTI13Authenticator.client_id = '125900000000000001' # from canvas developer key
 c.LTI13Authenticator.endpoint = 'https://illumidesk.instructure.com'
 c.LTI13Authenticator.token_url = 'https://illumidesk.instructure.com/login/oauth2/token'
