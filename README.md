@@ -22,7 +22,7 @@ c.LTI13Authenticator.authorize_url = 'https://illumidesk.instructure.com/api/lti
 JupyterHub environment variables:
 
 ```python
-RESOURCE_DIR=/mnt/efs/fs1
+NFS_ROOT=/mnt/efs/fs1
 PRIVATE_KEY='my_rsa_private_key'
 ```
 
