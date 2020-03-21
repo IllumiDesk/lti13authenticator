@@ -21,6 +21,9 @@ class GradesSender:
         self.course_id = course_id
         self.assignment_name = assignment_name
         self.grades = grades
+        logger.debug(
+            'Instantiated GradesSender with url %s, course_id %s, assignment_name %s, grades %s' % (
+               url, course_id, assignment_name, grades))
 
     def send(self):
         raise NotImplementedError()
@@ -34,14 +37,17 @@ async def send(assignment_name, token, grade, user_id, lineitems, lms):
     client = AsyncHTTPClient()
     resp = await client.fetch(lineitems, headers=headers)
     items = json.loads(resp.body)
+    logger.debug('Sending grades %s' % items)
     lineitem = None
     for item in items:
         if assignment_name.lower() == item['label'].lower():
             lineitem = item['id']
+            logger.debug('Obtained lineitem %s' % item)
     if lineitem is None:
         return
     resp = await client.fetch(lineitem, headers=headers)
     line_item = json.loads(resp.body)
+    logger.debug('Fetched lineitem %s' % line_item)
     data = {
         'timestamp': datetime.now().isoformat(),
         'userId': user_id,
@@ -54,6 +60,7 @@ async def send(assignment_name, token, grade, user_id, lineitems, lms):
     app_log.info(data)
     headers.update({'Content-Type': 'application/vnd.ims.lis.v1.score+json'})
     url = lineitem + '/scores'
+    logger.debug('URL for lineitem %s' % url)
     await client.fetch(url, body=json.dumps(data), method='POST', headers=headers)
 
 
@@ -66,8 +73,11 @@ class CanvasSender(GradesSender):
             os.environ['PRIVATE_KEY'],
             os.environ['LMS_CLIENT_ID'],
         )
+        logger.debug('Sending grades with token %s' % token)
         lms_endpoint = os.environ['LMS_ENDPOINT']
+        logger.debug('Sending grades with lms_endpoint %s' % lms_endpoint)
         lineitems = f'{lms_endpoint}/api/lti/courses/{self.course_id}/line_items'
+        logger.debug('Sending grades with URL %s' % lineitems)
         for grades in self.grades:
             await send(
                 self.assignment_name,
