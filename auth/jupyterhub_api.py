@@ -1,7 +1,11 @@
 import os
 import json
+import logging
 
 from tornado.httpclient import AsyncHTTPClient
+
+
+logger = logging.getLogger(__name__)
 
 
 class JupyterHubAPI:

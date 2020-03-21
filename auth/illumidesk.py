@@ -1,6 +1,11 @@
 import json
+import logging
 import urllib
+
 from tornado.httpclient import AsyncHTTPClient
+
+
+logger = logging.getLogger(__name__)
 
 
 async def send_assignment_to_illumidesk(decoded, url):

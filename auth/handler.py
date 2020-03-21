@@ -1,20 +1,33 @@
 import os
-import time
 import json
-from uuid import uuid4
-from secrets import randbits
-from urllib.parse import quote, urlparse
-from pathlib import Path
+import logging
+import time
+
 from hashlib import md5
+from pathlib import Path
+from secrets import randbits
+from uuid import uuid4
+from urllib.parse import quote, urlparse
 
 from Crypto.PublicKey import RSA
+
+from jupyterhub.handlers import BaseHandler
+
 from jwkest import long_to_base64
+
+from oauthenticator.oauth2 import OAuthLoginHandler
+from oauthenticator.oauth2 import OAuthLoginHandler
+from oauthenticator.oauth2 import OAuthCallbackHandler
+from oauthenticator.oauth2 import _serialize_state
+from oauthenticator.oauth2 import guess_callback_uri
+
 from tornado import web
 from tornado.auth import OAuth2Mixin
-from jupyterhub.handlers import BaseHandler
-from oauthenticator.oauth2 import OAuthLoginHandler, OAuthCallbackHandler, _serialize_state, guess_callback_uri
 
 from .grades import get_sender
+
+
+logger = logging.getLogger(__name__)
 
 
 class LTI13LoginHandler(OAuthLoginHandler, OAuth2Mixin):

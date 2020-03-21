@@ -1,18 +1,31 @@
 import os
 import json
+import logging
+
 from pathlib import Path
+
+from josepy.jws import JWS
+from josepy.jws import Header
 
 import jwt
 
 from tornado import web
 from tornado.httpclient import AsyncHTTPClient
-from traitlets import Unicode, Bool
-from oauthenticator.oauth2 import OAuthenticator
-from josepy.jws import JWS, Header
 
-from .handler import LTI13LoginHandler, LTI13CallbackHandler
+from traitlets import Unicode
+from traitlets import Bool
+
+from oauthenticator.oauth2 import OAuthenticator
+
+from .handler import LTI13LoginHandler
+from .handler import LTI13CallbackHandler
 from .illumidesk import setup_course
-from .lms import email_to_username, fetch_students_from_lms, get_lms_access_token
+from .lms import email_to_username
+from .lms import fetch_students_from_lms
+from .lms import get_lms_access_token
+
+
+from logging.getLogger(__name__)
 
 
 async def retrieve_matching_jwk(token, endpoint, verify):

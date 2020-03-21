@@ -1,19 +1,25 @@
-import time
-import shutil
-import uuid
-import re
-import urllib
-import os
 import json
+import jwt
+import os
+import re
+import shutil
+import time
+import urllib
+import uuid
+
 from pathlib import Path
 
-import jwt
-
 from tornado.log import app_log
-from tornado.httpclient import HTTPClientError, AsyncHTTPClient
-from nbgrader.api import Gradebook, InvalidEntry
+from tornado.httpclient import HTTPClientError
+from tornado.httpclient import AsyncHTTPClient
+
+from nbgrader.api import Gradebook
+from nbgrader.api import InvalidEntry
 
 from .jupyterhub_api import JupyterHubAPI
+
+
+logger = logging.getLogger(__name__)
 
 
 def email_to_username(email):
