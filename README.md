@@ -1,3 +1,5 @@
+**THIS REPO IS NO LONGER MAINTAINED. PLEASE REFER TO THE [ILLUMIDESK MONOREPO](https://github.com/illumidesk/illumidesk) FOR LTI 1.3 CODE**
+
 # JupyterHub LTI 1.3 Authentication
 
 ## Installation
